@@ -8,7 +8,7 @@ resource "aws_codepipeline" "images-pipeline" {
   }
 
   stage {
-    name = "Source"
+    name = "source"
 
     action {
       name             = "GithubSource"
@@ -20,8 +20,8 @@ resource "aws_codepipeline" "images-pipeline" {
 
       configuration = {
         Owner                = "nhsconnect"
-        Repo                 = "prm-infra"
-        Branch               = "infra"
+        Repo                 = "prm-deductions-cd"
+        Branch               = "master"
         OAuthToken           = "${var.github_token_value}"
         PollForSourceChanges = "true"
       }
