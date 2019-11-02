@@ -8,7 +8,7 @@ resource "aws_codepipeline" "prm-gp-portal-pipeline" {
   } 
 
   stage {
-    name = "Source" 
+    name = "source" 
     action {
       name             = "GithubSource"
       category         = "Source"

@@ -8,7 +8,7 @@ resource "aws_codepipeline" "deductions-gp-portal" {
   } 
 
   stage {
-    name = "Source" 
+    name = "source" 
     action {
       name             = "GithubSource"
       category         = "Source"
