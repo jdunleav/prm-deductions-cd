@@ -10,6 +10,14 @@ module "common" {
     caller_identity_current_account_id  = "${data.aws_caller_identity.current.account_id}"
 }
 
+module "deductions-build-monitor" {
+    source                              = "./build-monitor/"
+    environment                         = "${var.environment}"
+    aws_region                          = "${var.aws_region}"
+    component_name                      = "${var.build_monitor_component_name}"
+
+}
+
 module "deductions-build-images" {
     source                              = "./pipelines/deductions-build-images/"
     environment                         = "${var.environment}"

@@ -6,7 +6,7 @@ resource "aws_instance" "buildmonitor" {
     key_name                        = "deductions-buildmonitor"
     iam_instance_profile            = "${aws_iam_instance_profile.buildmonitor-profile.name}"
 
-    user_data = "${file("templates/user_data.sh")}"
+    user_data = "${file("${path.module}/templates/user_data.sh")}"
     
     tags = {
         Name = "${var.environment}-${var.component_name}-buildmonitor"
