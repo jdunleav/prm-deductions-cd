@@ -28,3 +28,13 @@ resource "aws_s3_bucket" "prm-codebuild-image-artifact" {
   }
 }
 
+resource "aws_s3_bucket" "prm-buildmonitor-build-files" {
+  bucket        = "prm-${var.caller_identity_current_account_id}-buildmonitor-build-files"
+  acl           = "private"
+  force_destroy = true
+
+  versioning {
+    enabled = true
+  }
+}
+

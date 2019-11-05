@@ -312,3 +312,5 @@ latest.zip
 *.pfx
 *.pem
 
+
+pipelines/build-monitor/artifacts/

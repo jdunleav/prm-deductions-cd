@@ -13,6 +13,11 @@ output "prm-codebuild-image-artifact" {
   description = "Bucket for Image Pipeline artefects"
 }
 
+output "prm-build-monitor-files" {
+  value       = "${aws_s3_bucket.prm-buildmonitor-build-files.bucket}"
+  description = "Bucket for Build Monitor Ansible Files"
+}
+
 output "gp_portal_ecr_repo_name" {
   value       = "${aws_ecr_repository.gp-portal-ecr-repo.name}"
 }
