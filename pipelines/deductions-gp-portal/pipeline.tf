@@ -35,7 +35,6 @@ resource "aws_codepipeline" "deductions-gp-portal" {
       provider        = "CodeBuild"
       version         = "1"
       input_artifacts = ["source"]  
-      output_artifacts = ["imagedefinitions"]
       configuration =  {
         ProjectName = "${aws_codebuild_project.prm-build-gp-portal-image.name}"
       }
@@ -43,21 +42,18 @@ resource "aws_codepipeline" "deductions-gp-portal" {
   }
 
   stage {
-    name = "deploy-docker-image"
-
+    name = "apply-task-and-deploy-app"  
     action {
-      name            = "Deploy"
-      category        = "Deploy"
+      name            = "Apply"
+      category        = "Build"
       owner           = "AWS"
-      provider        = "ECS"
-      input_artifacts = ["imagedefinitions"]
+      provider        = "CodeBuild"
       version         = "1"
-
+      input_artifacts = ["source"]
+      run_order       = 2 
       configuration = {
-        ClusterName = "${var.deductions_gp_portal_ecs_cluster}"
-        ServiceName = "${var.deductions_gp_portal_ecs_service}"
-        FileName    = "imagedefinitions.json"
+        ProjectName = "${aws_codebuild_project.prm-deploy-gp-practice-portal.name}"
       }
     }
-  }  
+  }
 }
