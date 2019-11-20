@@ -27,6 +27,23 @@ resource "aws_codepipeline" "deductions-pds-adaptor" {
   } 
 
   stage {
+    name = "unit-test"
+
+    action {
+      name            = "unit-test-pds-adaptor"
+      category        = "Test"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      version         = "1"
+      input_artifacts = ["source"]
+
+      configuration = {
+        ProjectName = "${aws_codebuild_project.prm-unit-test-pds-adaptor.name}"
+      }
+    }
+  }
+
+  stage {
     name = "build-docker-image"  
     action {
       name            = "build-pds-adaptor-image"
