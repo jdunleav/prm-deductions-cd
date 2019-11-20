@@ -20,7 +20,7 @@ resource "aws_codepipeline" "prm-gp-portal-pipeline" {
         Owner                = "nhsconnect"
         Repo                 = "prm-deductions-infra"
         Branch               = "master"
-        OAuthToken           = "${var.github_token_value}"
+        # OAuthToken           = "${var.github_token_value}"
         PollForSourceChanges = "true"
       }
     }

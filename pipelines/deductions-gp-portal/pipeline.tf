@@ -20,7 +20,7 @@ resource "aws_codepipeline" "deductions-gp-portal" {
         Owner                = "nhsconnect"
         Repo                 = "prm-deductions-portal-gp-practice"
         Branch               = "master"
-        OAuthToken           = "${var.github_token_value}"
+        # OAuthToken           = "${var.github_token_value}"
         PollForSourceChanges = "true"
       }
     }
@@ -42,7 +42,7 @@ resource "aws_codepipeline" "deductions-gp-portal" {
   }
 
   stage {
-    name = "apply-task-and-deploy-app"  
+    name = "deploy-task-and-app"  
     action {
       name            = "Apply"
       category        = "Build"

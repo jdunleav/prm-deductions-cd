@@ -22,7 +22,7 @@ resource "aws_codepipeline" "images-pipeline" {
           Owner                = "nhsconnect"
           Repo                 = "prm-deductions-cd"
           Branch               = "master"
-          OAuthToken           = "${var.github_token_value}"
+          # OAuthToken           = "${var.github_token_value}"
           PollForSourceChanges = "true"
         }
       }

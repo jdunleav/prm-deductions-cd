@@ -20,7 +20,7 @@ resource "aws_codepipeline" "deductions-pds-adaptor" {
         Owner                = "nhsconnect"
         Repo                 = "prm-deductions-pds-adaptor"
         Branch               = "master"
-        OAuthToken           = "${var.github_token_value}"
+        # OAuthToken           = "${var.github_token_value}"
         PollForSourceChanges = "true"
       }
     }
@@ -59,7 +59,7 @@ resource "aws_codepipeline" "deductions-pds-adaptor" {
   }
 
   stage {
-    name = "apply-task-and-deploy-app"  
+    name = "deploy-task-and-app"  
     action {
       name            = "Apply"
       category        = "Build"
