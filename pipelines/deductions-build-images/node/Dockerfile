@@ -4,5 +4,9 @@ RUN apt-get update && apt-get install -y wget curl jq unzip zip python3 gnupg ma
   curl -O https://bootstrap.pypa.io/get-pip.py && \
   python3 get-pip.py && \
   pip3 install awscli && \
-  curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-  apt-get install -y nodejs
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash && \
+  export NVM_DIR="$HOME/.nvm" && \
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
+  nvm install 12.13.1
+
+  ENTRYPOINT ["tail", "-f", "/dev/null"]
