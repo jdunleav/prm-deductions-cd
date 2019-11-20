@@ -52,7 +52,7 @@ resource "aws_codebuild_project" "prm-build-node-image" {
   description   = "Builds node image"
   build_timeout = "5"
 
-  service_role = "${ç}"
+  service_role = "${var.service_role}"
 
   artifacts {
     type = "CODEPIPELINE"
@@ -71,7 +71,7 @@ resource "aws_codebuild_project" "prm-build-node-image" {
 
     environment_variable {
       name  = "AWS_ACCOUNT_ID"
-      value = "${data.aws_caller_identity.current.account_id}"
+      value = "${var.caller_identity_current_account_id}"
     }
 
     environment_variable {

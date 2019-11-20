@@ -43,7 +43,6 @@ resource "aws_codepipeline" "images-pipeline" {
         ProjectName = "${aws_codebuild_project.prm-build-terraform-012-image.name}"
       }
     }    
-  }
 
   action {
       name            = "build-node-image"
@@ -57,4 +56,5 @@ resource "aws_codepipeline" "images-pipeline" {
         ProjectName = "${aws_codebuild_project.prm-build-node-image.name}"
       }
     }
+  }
 }
