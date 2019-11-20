@@ -7,4 +7,5 @@ RUN apt-get update && apt-get install -y wget curl jq unzip zip python3 gnupg ma
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash && \
   export NVM_DIR="$HOME/.nvm" && \
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
-  nvm install 12.13.1
+  nvm install 12.13.1 && \
+  bash
