@@ -2,8 +2,16 @@ resource "aws_ecr_repository" "gp-portal-ecr-repo" {
     name = "deductions/gp-portal"
 }
 
+resource "aws_ecr_repository" "pds-adaptor-ecr-repo" {
+    name = "deductions/pds-adaptor"
+}
+
 resource "aws_ecr_repository" "terraform-012-image" {
     name = "codebuild/terraform012-new"
+}
+
+resource "aws_ecr_repository" "node-image" {
+    name = "codebuild/node"
 }
 
 data "aws_iam_policy_document" "code_build_access" {

@@ -97,7 +97,8 @@ data "template_file" "codepipeline-generic-policy" {
   vars = {
     PRM_CODEBUILD_INFRA_ARTIFACT_BUCKET     = "${aws_s3_bucket.prm-codebuild-infra-artifact.arn}"
     PRM_CODEBUILD_GPPORTAL_ARTIFACT_BUCKET  = "${aws_s3_bucket.prm-codebuild-gp-portal-artifact.arn}"
-    PRM_CODEBUILD_IMAGE_PIPELINE_BUCKET     = "${aws_s3_bucket.prm-codebuild-image-artifact.arn}"
+    PRM_CODEBUILD_PDSADAPTOR_ARTIFACT_BUCKET  = "${aws_s3_bucket.prm-codebuild-pds-adaptor-artifact.arn}"
+    PRM_CODEBUILD_IMAGE_PIPELINE_BUCKET     = "${aws_s3_bucket.prm-codebuild-image-artifact.arn}" 
   }
 }
 

@@ -1,60 +1,59 @@
-resource "aws_codepipeline" "images-pipeline" {
-  name     = "deductions-build-images"
-  role_arn = "${var.codepipeline_generic_role_arn}"
+resource "aws_codepipeline" "deductions-pds-adaptor" {
+  name     = "deductions-pds-adaptor"
+  role_arn = "${var.codepipeline_generic_role_arn}"  
 
   artifact_store {
     location = "${var.artifact_bucket}"
     type     = "S3"
-  }
+  } 
 
   stage {
-    name = "source"
-
+    name = "source" 
     action {
       name             = "GithubSource"
       category         = "Source"
       owner            = "ThirdParty"
       provider         = "GitHub"
       version          = "1"
-      output_artifacts = ["source"]
-
+      output_artifacts = ["source"] 
       configuration = {
         Owner                = "nhsconnect"
-        Repo                 = "prm-deductions-cd"
+        Repo                 = "prm-deductions-pds-adaptor"
         Branch               = "master"
         OAuthToken           = "${var.github_token_value}"
         PollForSourceChanges = "true"
       }
     }
+  } 
+
+  stage {
+    name = "build-docker-image"  
+    action {
+      name            = "build-pds-adaptor-image"
+      category        = "Build"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      version         = "1"
+      input_artifacts = ["source"]  
+      configuration =  {
+        ProjectName = "${aws_codebuild_project.prm-build-pds-adaptor-image.name}"
+      }
+    }  
   }
 
   stage {
-    name = "build-images"
-
+    name = "apply-task-and-deploy-app"  
     action {
-      name            = "build-terraform-012-image"
+      name            = "Apply"
       category        = "Build"
       owner           = "AWS"
       provider        = "CodeBuild"
       version         = "1"
       input_artifacts = ["source"]
-
+      run_order       = 2 
       configuration = {
-        ProjectName = "${aws_codebuild_project.prm-build-terraform-012-image.name}"
-      }
-    }    
-  }
-
-  action {
-      name            = "build-node-image"
-      category        = "Build"
-      owner           = "AWS"
-      provider        = "CodeBuild"
-      version         = "1"
-      input_artifacts = ["source"]
-
-      configuration = {
-        ProjectName = "${aws_codebuild_project.prm-build-node-image.name}"
+        ProjectName = "${aws_codebuild_project.prm-deploy-pds-adaptor.name}"
       }
     }
+  }
 }

@@ -14,4 +14,6 @@ variable "service_role" {}
 
 variable "caller_identity_current_account_id" {}
 
-variable "ecr_repo_name" {}
+variable "node_ecr_repo_name" {}
+
+variable "terraform_ecr_repo_name" {}

@@ -8,6 +8,11 @@ output "prm-codebuild-gp-portal-artifact" {
   description = "Bucket for GP Portal artefects"
 }
 
+output "prm-codebuild-pds-adaptor-artifact" {
+  value       = "${aws_s3_bucket.prm-codebuild-pds-adaptor-artifact.bucket}"
+  description = "Bucket for PDS Adaptor artefects"
+}
+
 output "prm-codebuild-image-artifact" {
   value       = "${aws_s3_bucket.prm-codebuild-image-artifact.bucket}"
   description = "Bucket for Image Pipeline artefects"
@@ -22,9 +27,18 @@ output "gp_portal_ecr_repo_name" {
   value       = "${aws_ecr_repository.gp-portal-ecr-repo.name}"
 }
 
+output "pds_adaptor_ecr_repo_name" {
+  value       = "${aws_ecr_repository.pds-adaptor-ecr-repo.name}"
+}
+
 output "terraform012_ecr_repo_name" {
   value       = "${aws_ecr_repository.terraform-012-image.name}"
 }
+
+output "node_ecr_repo_name" {
+  value       = "${aws_ecr_repository.node-image.name}"
+}
+
 
 output "codepipeline_generic_role_arn" {
   value       = "${aws_iam_role.deductions-codepipeline-generic-role.arn}"

@@ -26,7 +26,8 @@ module "deductions-build-images" {
     role_arn                            = "${module.common.codebuild_role_arn}"
     artifact_bucket                     = "${module.common.prm-codebuild-image-artifact}"
 
-    ecr_repo_name                       = "${module.common.terraform012_ecr_repo_name}"
+    terraform_ecr_repo_name             = "${module.common.terraform012_ecr_repo_name}"
+    node_ecr_repo_name                  = "${module.common.node_ecr_repo_name}"
 
     codepipeline_generic_role_arn       = "${module.common.codepipeline_generic_role_arn}"
     github_token_value                  = "${data.aws_ssm_parameter.github_token.value}"
@@ -64,8 +65,22 @@ module "deductions-gp-portal" {
     github_token_value                  = "${data.aws_ssm_parameter.github_token.value}"
     service_role                        = "${module.common.codebuild_project_generic_role_arn}"
 
-    deductions_gp_portal_ecs_cluster    = "${var.deductions_gp_portal_ecs_cluster}"
-    deductions_gp_portal_ecs_service    = "${var.deductions_gp_portal_ecs_service}"
+    caller_identity_current_account_id  = "${data.aws_caller_identity.current.account_id}"
+}
+
+module "deductions-pds-adaptor" {
+    source                              = "./pipelines/deductions-pds-adaptor/"
+    environment                         = "${var.environment}"
+    aws_region                          = "${var.aws_region}"
+
+    role_arn                            = "${module.common.codebuild_role_arn}"
+    artifact_bucket                     = "${module.common.prm-codebuild-pds-adaptor-artifact}"
+
+    ecr_repo_name                       = "${module.common.pds_adaptor_ecr_repo_name}"
+
+    codepipeline_generic_role_arn       = "${module.common.codepipeline_generic_role_arn}"
+    github_token_value                  = "${data.aws_ssm_parameter.github_token.value}"
+    service_role                        = "${module.common.codebuild_project_generic_role_arn}"
 
     caller_identity_current_account_id  = "${data.aws_caller_identity.current.account_id}"
 }
