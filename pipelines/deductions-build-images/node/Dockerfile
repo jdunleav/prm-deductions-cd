@@ -8,5 +8,3 @@ RUN apt-get update && apt-get install -y wget curl jq unzip zip python3 gnupg ma
   export NVM_DIR="$HOME/.nvm" && \
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
   nvm install 12.13.1
-
-  ENTRYPOINT ["tail", "-f", "/dev/null"]
