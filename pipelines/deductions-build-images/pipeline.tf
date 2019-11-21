@@ -1,9 +1,9 @@
 resource "aws_codepipeline" "images-pipeline" {
     name     = "deductions-build-images"
-    role_arn = "${var.codepipeline_generic_role_arn}"
+    role_arn = var.codepipeline_generic_role_arn
 
     artifact_store {
-      location = "${var.artifact_bucket}"
+      location = var.artifact_bucket
       type     = "S3"
     }
 
@@ -22,7 +22,6 @@ resource "aws_codepipeline" "images-pipeline" {
           Owner                = "nhsconnect"
           Repo                 = "prm-deductions-cd"
           Branch               = "master"
-          # OAuthToken           = "${var.github_token_value}"
           PollForSourceChanges = "true"
         }
       }
@@ -40,7 +39,7 @@ resource "aws_codepipeline" "images-pipeline" {
           input_artifacts = ["source"]
 
           configuration = {
-            ProjectName = "${aws_codebuild_project.prm-build-terraform-012-image.name}"
+            ProjectName = aws_codebuild_project.prm-build-terraform-012-image.name
           }
       }    
 
@@ -53,7 +52,7 @@ resource "aws_codepipeline" "images-pipeline" {
         input_artifacts = ["source"]
 
         configuration = {
-          ProjectName = "${aws_codebuild_project.prm-build-node-image.name}"
+          ProjectName = aws_codebuild_project.prm-build-node-image.name
         }
       }
     }

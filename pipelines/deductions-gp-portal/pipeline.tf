@@ -1,9 +1,9 @@
 resource "aws_codepipeline" "deductions-gp-portal" {
   name     = "deductions-gp-portal"
-  role_arn = "${var.codepipeline_generic_role_arn}"  
+  role_arn = var.codepipeline_generic_role_arn
 
   artifact_store {
-    location = "${var.artifact_bucket}"
+    location = var.artifact_bucket
     type     = "S3"
   } 
 
@@ -20,7 +20,6 @@ resource "aws_codepipeline" "deductions-gp-portal" {
         Owner                = "nhsconnect"
         Repo                 = "prm-deductions-portal-gp-practice"
         Branch               = "master"
-        # OAuthToken           = "${var.github_token_value}"
         PollForSourceChanges = "true"
       }
     }
@@ -36,7 +35,7 @@ resource "aws_codepipeline" "deductions-gp-portal" {
       version         = "1"
       input_artifacts = ["source"]  
       configuration =  {
-        ProjectName = "${aws_codebuild_project.prm-build-gp-portal-image.name}"
+        ProjectName = aws_codebuild_project.prm-build-gp-portal-image.name
       }
     }  
   }
@@ -52,7 +51,7 @@ resource "aws_codepipeline" "deductions-gp-portal" {
       input_artifacts = ["source"]
       run_order       = 2 
       configuration = {
-        ProjectName = "${aws_codebuild_project.prm-deploy-gp-practice-portal.name}"
+        ProjectName = aws_codebuild_project.prm-deploy-gp-practice-portal.name
       }
     }
   }

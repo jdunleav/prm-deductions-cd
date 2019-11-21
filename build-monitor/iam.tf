@@ -19,22 +19,22 @@ EOF
 
 resource "aws_iam_instance_profile" "buildmonitor-profile" {
   name = "build-monitor-instance-profile"
-  role = "${aws_iam_role.buildmonitor-role.name}"
+  role = aws_iam_role.buildmonitor-role.name
 }
 
 resource "aws_iam_role_policy_attachment" "buildmonitor-role-attach-1" {
-  role       = "${aws_iam_role.buildmonitor-role.name}"
-  policy_arn = "${data.aws_iam_policy.AmazonEC2ContainerRegistryReadOnly.arn}"
+  role       = aws_iam_role.buildmonitor-role.name
+  policy_arn = data.aws_iam_policy.AmazonEC2ContainerRegistryReadOnly.arn
 }
 
 resource "aws_iam_role_policy_attachment" "buildmonitor-role-attach-2" {
-  role       = "${aws_iam_role.buildmonitor-role.name}"
-  policy_arn = "${data.aws_iam_policy.AmazonS3ReadOnlyAccess.arn}"
+  role       = aws_iam_role.buildmonitor-role.name
+  policy_arn = data.aws_iam_policy.AmazonS3ReadOnlyAccess.arn
 }
 
 resource "aws_iam_role_policy_attachment" "buildmonitor-role-attach-3" {
-  role       = "${aws_iam_role.buildmonitor-role.name}"
-  policy_arn = "${data.aws_iam_policy.AWSCodePipelineFullAccess.arn}"
+  role       = aws_iam_role.buildmonitor-role.name
+  policy_arn = data.aws_iam_policy.AWSCodePipelineFullAccess.arn
 }
 
 data "aws_iam_policy" "AmazonEC2ContainerRegistryReadOnly" {

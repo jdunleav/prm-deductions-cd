@@ -4,7 +4,7 @@ resource "aws_codebuild_project" "prm-build-pds-adaptor-image" {
   description   = "Builds pds-adaptor image"
   build_timeout = "5"
 
-  service_role = "${var.service_role}"
+  service_role = var.service_role
 
   artifacts {
     type = "CODEPIPELINE"
@@ -18,17 +18,17 @@ resource "aws_codebuild_project" "prm-build-pds-adaptor-image" {
 
     environment_variable {
       name  = "AWS_DEFAULT_REGION"
-      value = "${var.aws_region}"
+      value = var.aws_region
     }
 
     environment_variable {
       name  = "AWS_ACCOUNT_ID"
-      value = "${var.caller_identity_current_account_id}"
+      value = var.caller_identity_current_account_id
     }
 
     environment_variable {
       name  = "IMAGE_REPO_NAME"
-      value = "${var.ecr_repo_name}"
+      value = var.ecr_repo_name
     }
 
     environment_variable {
@@ -52,7 +52,7 @@ resource "aws_codebuild_project" "prm-deploy-pds-adaptor" {
   name          = "prm-deploy-pds-adaptor"
   description   = "Creates/Updates Fargate Task and Service and deploys PDS Adaptor image"
   build_timeout = "5"
-  service_role = "${var.service_role}"
+  service_role = var.service_role
 
   artifacts {
     type = "CODEPIPELINE"
@@ -65,17 +65,17 @@ resource "aws_codebuild_project" "prm-deploy-pds-adaptor" {
           
     environment_variable {
       name  = "ASSUME_ROLE_NAME"
-      value = "${var.role_arn}"
+      value = var.role_arn
     }
 
     environment_variable {
       name = "ENVIRONMENT"
-      value = "${var.environment}"
+      value = var.environment
     }
 
     environment_variable {
       name = "ACCOUNT_ID"
-      value = "${var.caller_identity_current_account_id}"
+      value = var.caller_identity_current_account_id
     }
   }
 
@@ -89,7 +89,7 @@ resource "aws_codebuild_project" "prm-unit-test-pds-adaptor" {
   name        = "prm-unit-test-pds-adaptor"
   description = "Unit Tests PDS Adaptor"
 
-  service_role = "${var.service_role}"
+  service_role = var.service_role
 
   artifacts {
     type = "CODEPIPELINE"
@@ -102,17 +102,17 @@ resource "aws_codebuild_project" "prm-unit-test-pds-adaptor" {
 
     environment_variable {
       name  = "ASSUME_ROLE_NAME"
-      value = "${var.role_arn}"
+      value = var.role_arn
     }
 
     environment_variable {
       name = "ENVIRONMENT"
-      value = "${var.environment}"
+      value = var.environment
     }
 
     environment_variable {
       name = "ACCOUNT_ID"
-      value = "${var.caller_identity_current_account_id}"
+      value = var.caller_identity_current_account_id
     }
   }
 

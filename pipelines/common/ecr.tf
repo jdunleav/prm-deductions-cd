@@ -41,13 +41,13 @@ data "aws_iam_policy_document" "code_build_access" {
 }
 
 resource "aws_ecr_repository_policy" "terraform-012-image" {
-    repository = "${aws_ecr_repository.terraform-012-image.name}"
+    repository = aws_ecr_repository.terraform-012-image.name
 
-    policy = "${data.aws_iam_policy_document.code_build_access.json}"
+    policy = data.aws_iam_policy_document.code_build_access.json
 }
 
 resource "aws_ecr_repository_policy" "node-image-policy" {
-    repository = "${aws_ecr_repository.node-image.name}"
+    repository = aws_ecr_repository.node-image.name
 
-    policy = "${data.aws_iam_policy_document.code_build_access.json}"
+    policy = data.aws_iam_policy_document.code_build_access.json
 }

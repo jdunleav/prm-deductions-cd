@@ -3,7 +3,7 @@ resource "aws_codebuild_project" "prm-build-terraform-012-image" {
   description   = "Builds terraform 0.12 image"
   build_timeout = "5"
 
-  service_role = "${var.service_role}"
+  service_role = var.service_role
 
   artifacts {
     type = "CODEPIPELINE"
@@ -17,17 +17,17 @@ resource "aws_codebuild_project" "prm-build-terraform-012-image" {
 
     environment_variable {
       name  = "AWS_DEFAULT_REGION"
-      value = "${var.aws_region}"
+      value = var.aws_region
     }
 
     environment_variable {
       name  = "AWS_ACCOUNT_ID"
-      value = "${var.caller_identity_current_account_id}"
+      value = var.caller_identity_current_account_id
     }
 
     environment_variable {
       name  = "IMAGE_REPO_NAME"
-      value = "${var.terraform_ecr_repo_name}"
+      value = var.terraform_ecr_repo_name
     }
 
     environment_variable {
@@ -52,7 +52,7 @@ resource "aws_codebuild_project" "prm-build-node-image" {
   description   = "Builds node image"
   build_timeout = "5"
 
-  service_role = "${var.service_role}"
+  service_role = var.service_role
 
   artifacts {
     type = "CODEPIPELINE"
@@ -66,17 +66,17 @@ resource "aws_codebuild_project" "prm-build-node-image" {
 
     environment_variable {
       name  = "AWS_DEFAULT_REGION"
-      value = "${var.aws_region}"
+      value = var.aws_region
     }
 
     environment_variable {
       name  = "AWS_ACCOUNT_ID"
-      value = "${var.caller_identity_current_account_id}"
+      value = var.caller_identity_current_account_id
     }
 
     environment_variable {
       name  = "IMAGE_REPO_NAME"
-      value = "${var.node_ecr_repo_name}"
+      value = var.node_ecr_repo_name
     }
 
     environment_variable {

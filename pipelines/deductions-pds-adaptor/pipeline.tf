@@ -1,9 +1,9 @@
 resource "aws_codepipeline" "deductions-pds-adaptor" {
   name     = "deductions-pds-adaptor"
-  role_arn = "${var.codepipeline_generic_role_arn}"  
+  role_arn = var.codepipeline_generic_role_arn 
 
   artifact_store {
-    location = "${var.artifact_bucket}"
+    location = var.artifact_bucket
     type     = "S3"
   } 
 
@@ -20,7 +20,6 @@ resource "aws_codepipeline" "deductions-pds-adaptor" {
         Owner                = "nhsconnect"
         Repo                 = "prm-deductions-pds-adaptor"
         Branch               = "master"
-        # OAuthToken           = "${var.github_token_value}"
         PollForSourceChanges = "true"
       }
     }
@@ -38,7 +37,7 @@ resource "aws_codepipeline" "deductions-pds-adaptor" {
       input_artifacts = ["source"]
 
       configuration = {
-        ProjectName = "${aws_codebuild_project.prm-unit-test-pds-adaptor.name}"
+        ProjectName = aws_codebuild_project.prm-unit-test-pds-adaptor.name
       }
     }
   }
@@ -53,7 +52,7 @@ resource "aws_codepipeline" "deductions-pds-adaptor" {
       version         = "1"
       input_artifacts = ["source"]  
       configuration =  {
-        ProjectName = "${aws_codebuild_project.prm-build-pds-adaptor-image.name}"
+        ProjectName = aws_codebuild_project.prm-build-pds-adaptor-image.name
       }
     }  
   }
@@ -69,7 +68,7 @@ resource "aws_codepipeline" "deductions-pds-adaptor" {
       input_artifacts = ["source"]
       run_order       = 2 
       configuration = {
-        ProjectName = "${aws_codebuild_project.prm-deploy-pds-adaptor.name}"
+        ProjectName = aws_codebuild_project.prm-deploy-pds-adaptor.name
       }
     }
   }

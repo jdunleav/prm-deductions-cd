@@ -2,7 +2,7 @@ resource "aws_codebuild_project" "prm-deductions-infra-apply" {
   name          = "prm-deductions-infra-apply"
   description   = "Applies the infrastructure"
   build_timeout = "5"
-  service_role = "${var.service_role}"
+  service_role = var.service_role
 
   artifacts {
     type = "CODEPIPELINE"
@@ -15,17 +15,17 @@ resource "aws_codebuild_project" "prm-deductions-infra-apply" {
           
     environment_variable {
       name  = "ASSUME_ROLE_NAME"
-      value = "${var.role_arn}"
+      value = var.role_arn
     }
 
     environment_variable {
       name = "ENVIRONMENT"
-      value = "${var.environment}"
+      value = var.environment
     }
 
     environment_variable {
       name = "ACCOUNT_ID"
-      value = "${var.caller_identity_current_account_id}"
+      value = var.caller_identity_current_account_id
     }
   }
 
