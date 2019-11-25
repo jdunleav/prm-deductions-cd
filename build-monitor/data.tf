@@ -6,6 +6,10 @@ data "aws_ssm_parameter" "deductions_private_bastion" {
     name = "/NHS/${var.environment}-${data.aws_caller_identity.current.account_id}/tf/deductions_private_bastion"
 }
 
+data "aws_ssm_parameter" "root_zone_id" {
+  name = "/NHS/deductions-${data.aws_caller_identity.current.account_id}/root_zone_id"
+}
+
 data "aws_caller_identity" "current" {}
 
 
