@@ -19,11 +19,29 @@ resource "aws_codepipeline" "deductions-gp-portal" {
       configuration = {
         Owner                = "nhsconnect"
         Repo                 = "prm-deductions-portal-gp-practice"
+        OAuthToken           = var.github_token_value
         Branch               = "master"
         PollForSourceChanges = "true"
       }
     }
   } 
+
+  stage {
+    name = "dependency-check"
+
+    action {
+      name            = "dependency-check"
+      category        = "Test"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      version         = "1"
+      input_artifacts = ["source"]
+
+      configuration = {
+        ProjectName = aws_codebuild_project.prm-dependency-check-gp-portal.name
+      }
+    }
+  }
 
   stage {
     name = "build-docker-image"  
