@@ -20,10 +20,28 @@ resource "aws_codepipeline" "deductions-pds-adaptor" {
         Owner                = "nhsconnect"
         Repo                 = "prm-deductions-pds-adaptor"
         Branch               = "master"
+        OAuthToken           = var.github_token_value
         PollForSourceChanges = "true"
       }
     }
   } 
+
+  stage {
+    name = "dependency-check"
+
+    action {
+      name            = "dependency-check"
+      category        = "Test"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      version         = "1"
+      input_artifacts = ["source"]
+
+      configuration = {
+        ProjectName = aws_codebuild_project.prm-dependency-check-pds-adaptor.name
+      }
+    }
+  }
 
   stage {
     name = "unit-test"
