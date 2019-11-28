@@ -84,7 +84,7 @@ resource "aws_codepipeline" "deductions-gp-portal" {
       input_artifacts = ["source"]
       run_order       = 3
       configuration = {
-        ProjectName = aws_codebuild_project.prm-deploy-gp-practice-portal.name
+        ProjectName = aws_codebuild_project.prm-accessibility-gp-portal.name
       }
     }
   }
