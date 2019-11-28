@@ -73,4 +73,19 @@ resource "aws_codepipeline" "deductions-gp-portal" {
       }
     }
   }
+  stage {
+    name = "accessibility-check"  
+    action {
+      name            = "accessibility-check"
+      category        = "Build"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      version         = "1"
+      input_artifacts = ["source"]
+      run_order       = 3
+      configuration = {
+        ProjectName = aws_codebuild_project.prm-deploy-gp-practice-portal.name
+      }
+    }
+  }
 }
