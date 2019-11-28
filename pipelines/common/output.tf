@@ -13,6 +13,11 @@ output "prm-codebuild-pds-adaptor-artifact" {
   description = "Bucket for PDS Adaptor artefects"
 }
 
+output "prm-codebuild-gp2gp-adaptor-artifact" {
+  value       = aws_s3_bucket.prm-codebuild-pds-adaptor-artifact.bucket
+  description = "Bucket for PDS Adaptor artefects"
+}
+
 output "prm-codebuild-image-artifact" {
   value       = aws_s3_bucket.prm-codebuild-image-artifact.bucket
   description = "Bucket for Image Pipeline artefects"
@@ -29,6 +34,10 @@ output "gp_portal_ecr_repo_name" {
 
 output "pds_adaptor_ecr_repo_name" {
   value       = aws_ecr_repository.pds-adaptor-ecr-repo.name
+}
+
+output "gp2gp_adaptor_ecr_repo_name" {
+  value       = aws_ecr_repository.gp2gp-adaptor-ecr-repo.name
 }
 
 output "terraform012_ecr_repo_name" {

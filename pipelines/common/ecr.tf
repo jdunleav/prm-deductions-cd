@@ -6,6 +6,10 @@ resource "aws_ecr_repository" "pds-adaptor-ecr-repo" {
     name = "deductions/pds-adaptor"
 }
 
+resource "aws_ecr_repository" "gp2gp-adaptor-ecr-repo" {
+    name = "deductions/gp2gp-adaptor"
+}
+
 resource "aws_ecr_repository" "terraform-012-image" {
     name = "codebuild/terraform012-new"
 }
