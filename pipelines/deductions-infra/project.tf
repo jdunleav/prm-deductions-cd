@@ -1,7 +1,7 @@
 resource "aws_codebuild_project" "prm-deductions-infra-apply" {
   name          = "prm-deductions-infra-apply"
   description   = "Applies the infrastructure"
-  build_timeout = "5"
+  build_timeout = "15"
   service_role = var.service_role
 
   artifacts {

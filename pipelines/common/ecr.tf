@@ -10,6 +10,10 @@ resource "aws_ecr_repository" "gp2gp-adaptor-ecr-repo" {
     name = "deductions/gp2gp-adaptor"
 }
 
+resource "aws_ecr_repository" "ehr-repo-ecr-repo" {
+    name = "deductions/ehr-repo"
+}
+
 resource "aws_ecr_repository" "terraform-012-image" {
     name = "codebuild/terraform012-new"
 }
