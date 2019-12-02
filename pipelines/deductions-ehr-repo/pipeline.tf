@@ -43,22 +43,22 @@ resource "aws_codepipeline" "deductions-ehr-repo" {
     }
   }
 
-  stage {
-    name = "unit-test"
+  # stage {
+  #   name = "unit-test"
 
-    action {
-      name            = "unit-test-ehr-repo"
-      category        = "Test"
-      owner           = "AWS"
-      provider        = "CodeBuild"
-      version         = "1"
-      input_artifacts = ["source"]
+  #   action {
+  #     name            = "unit-test-ehr-repo"
+  #     category        = "Test"
+  #     owner           = "AWS"
+  #     provider        = "CodeBuild"
+  #     version         = "1"
+  #     input_artifacts = ["source"]
 
-      configuration = {
-        ProjectName = aws_codebuild_project.prm-unit-test-ehr-repo.name
-      }
-    }
-  }
+  #     configuration = {
+  #       ProjectName = aws_codebuild_project.prm-unit-test-ehr-repo.name
+  #     }
+  #   }
+  # }
 
   stage {
     name = "build-docker-image"  
